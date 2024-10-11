@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ce8fabfc-6f08-4940-9e16-a86967aad848" name="Changes" comment="printing points">
+    <list default="true" id="ce8fabfc-6f08-4940-9e16-a86967aad848" name="Changes" comment="printing points + colored by nearest point">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/clustering_Z2B_barnak.py" beforeDir="false" afterPath="$PROJECT_DIR$/clustering_Z2B_barnak.py" afterDir="false" />
     </list>
@@ -104,11 +104,52 @@
       <option name="project" value="LOCAL" />
       <updated>1728675814544</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="printing points + colored by nearest point">
+      <option name="closed" value="true" />
+      <created>1728683629277</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1728683629277</updated>
+    </task>
+    <task id="LOCAL-00006" summary="printing points + colored by nearest point">
+      <option name="closed" value="true" />
+      <created>1728683633962</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1728683633962</updated>
+    </task>
+    <task id="LOCAL-00007" summary="printing points + colored by nearest point">
+      <option name="closed" value="true" />
+      <created>1728683646629</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1728683646629</updated>
+    </task>
+    <task id="LOCAL-00008" summary="printing points + colored by nearest point">
+      <option name="closed" value="true" />
+      <created>1728683656436</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1728683656436</updated>
+    </task>
+    <task id="LOCAL-00009" summary="printing points + colored by nearest point">
+      <option name="closed" value="true" />
+      <created>1728683714096</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1728683714096</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="printing points" />
-    <option name="LAST_COMMIT_MESSAGE" value="printing points" />
+    <MESSAGE value="printing points + colored by nearest point" />
+    <option name="LAST_COMMIT_MESSAGE" value="printing points + colored by nearest point" />
   </component>
 </project>

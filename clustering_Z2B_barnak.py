@@ -17,6 +17,7 @@ def generate_offset(value, min_value, max_value, offset_min=-100, offset_max=100
     new_value = value + offset
     return max(min_value + margin, min(max_value - margin, new_value))
 
+# Random color generator
 def random_color():
     return "#{:06x}".format(random.randint(0, 0xFFFFFF))
 
@@ -37,10 +38,50 @@ def recalculate_centroids(clusters):
             new_centroid = np.mean(cluster, axis=0)
             new_centroids.append(new_centroid)
         else:
-            # Perturb the previous centroid slightly to avoid overlap
             new_centroid = np.array([random.uniform(-5000, 5000), random.uniform(-5000, 5000)])
             new_centroids.append(new_centroid)
     return new_centroids
+
+# Function to evaluate cluster success
+def evaluate_cluster_success(clusters, centroids):
+    successful_clusters = 0
+    for i, points in clusters.items():
+        if len(points) > 0:
+            avg_distance = np.mean([distance(point, centroids[i]) for point in points])
+
+            print(f"Cluster {i+1}: Average distance = {avg_distance:.2f}", end=" ")
+            if avg_distance < 500:
+                print("- Success")
+                successful_clusters += 1
+            else:
+                print("- Failure")
+    return successful_clusters
+
+# Iterative K-means clustering function
+def k_means_clustering(additional_points, main_points, max_iterations=20):
+    centroids = [list(p[:2]) for p in main_points.values()]  # Start with initial centroids
+    clusters = {i: [] for i in range(len(centroids))}
+
+    for iteration in range(max_iterations):
+        # Clear clusters in each iteration
+        clusters = {i: [] for i in range(len(centroids))}
+
+        # Assign each point to the closest centroid
+        for point in additional_points:
+            cluster_index = find_closest_centroid(point[:2], centroids)
+            clusters[cluster_index].append(point[:2])
+
+        # Recalculate centroids
+        new_centroids = recalculate_centroids([np.array(clusters[i]) for i in range(len(centroids))])
+
+        # Check if centroids have stabilized (no significant change)
+        if np.allclose(new_centroids, centroids, atol=0.1):
+            print(f"Centroids stabilized after {iteration + 1} iterations")
+            break
+
+        centroids = new_centroids
+
+    return centroids, clusters
 
 # Create a tkinter window
 root = tk.Tk()
@@ -51,21 +92,15 @@ canvas.pack()
 
 # Generate 20 random main points (initial centroids)
 main_points = {}
-centroids = []
 for i in range(20):
     x = random.randint(-4980, 4980)
     y = random.randint(-4980, 4980)
     x_normalized = map_range(x, -5000, 5000, 0, 900)
     y_normalized = map_range(y, -5000, 5000, 0, 900)
-
     main_points[f'point_{i}'] = (x, y, x_normalized, y_normalized)
-    centroids.append([x, y])
 
 # List to store additional points
 additional_points = []
-
-# Clusters dictionary (index of centroid -> list of points)
-clusters = {i: [] for i in range(len(centroids))}
 
 # Generate 400 additional points based on all points (main + additional) and assign to clusters
 for i in range(40000):
@@ -75,39 +110,40 @@ for i in range(40000):
 
     new_x = generate_offset(base_x, -5000, 5000, margin=20)
     new_y = generate_offset(base_y, -5000, 5000, margin=20)
-
     new_x_normalized = map_range(new_x, -5000, 5000, 0, 900)
     new_y_normalized = map_range(new_y, -5000, 5000, 0, 900)
 
-    # Find the closest centroid and assign the new point to that cluster
-    cluster_index = find_closest_centroid([new_x, new_y], centroids)
-    clusters[cluster_index].append([new_x, new_y])
-
-    # Store the normalized point without assigning color yet
     additional_points.append((new_x, new_y, new_x_normalized, new_y_normalized))
 
-# Recalculate centroids after all points have been assigned
-centroids = recalculate_centroids([np.array(clusters[i]) for i in range(len(centroids))])
+# Perform k-means clustering
+final_centroids, final_clusters = k_means_clustering(additional_points, main_points)
 
 # Assign unique colors to each cluster
-centroid_colors = [random_color() for _ in centroids]
+centroid_colors = [random_color() for _ in final_centroids]
 
 # Draw additional points as colored circles according to their clusters
-for i, points in clusters.items():
+for i, points in final_clusters.items():
     for point in points:
-        new_x, new_y = point
-        new_x_normalized = map_range(new_x, -5000, 5000, 0, 900)
-        new_y_normalized = map_range(new_y, -5000, 5000, 0, 900)
+        new_x_normalized = map_range(point[0], -5000, 5000, 0, 900)
+        new_y_normalized = map_range(point[1], -5000, 5000, 0, 900)
         color = centroid_colors[i]  # Use the color of the corresponding centroid
         radius = 2
         canvas.create_oval(new_x_normalized - radius, new_y_normalized - radius,
                            new_x_normalized + radius, new_y_normalized + radius,
                            fill=color, outline=color)
 
-# Draw the first 20 main points as black circles with "o"
-for name, (x, y, x_norm, y_norm) in main_points.items():
+# Draw the first 20 main points as black circles with "o N"
+for i, (name, (x, y, x_norm, y_norm)) in enumerate(main_points.items()):
     radius = 10
-    canvas.create_text(x_norm, y_norm, text="o", font=("Arial", 15), fill="black")
+    canvas.create_text(x_norm, y_norm, text=f"o{i+1}", font=("Arial", 15), fill="black")
+
+# Evaluate the success of each cluster
+successful_clusters = evaluate_cluster_success(final_clusters, final_centroids)
+
+# Calculate and print the percentage of successful clusters
+total_clusters = len(final_centroids)
+success_percentage = (successful_clusters / total_clusters) * 100
+print(f"Percentage of successful clusters: {success_percentage:.2f}%")
 
 # Run the tkinter loop
 root.mainloop()

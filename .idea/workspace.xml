@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ce8fabfc-6f08-4940-9e16-a86967aad848" name="Changes" comment="k means centroid">
+    <list default="true" id="ce8fabfc-6f08-4940-9e16-a86967aad848" name="Changes" comment="k means centroid + succesfullity not complete">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/clustering_Z2B_barnak.py" beforeDir="false" afterPath="$PROJECT_DIR$/clustering_Z2B_barnak.py" afterDir="false" />
     </list>
@@ -160,13 +160,30 @@
       <option name="project" value="LOCAL" />
       <updated>1728685862449</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="k means centroid + succesfullity not complete">
+      <option name="closed" value="true" />
+      <created>1728741915866</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1728741915866</updated>
+    </task>
+    <task id="LOCAL-00013" summary="k means centroid + succesfullity not complete">
+      <option name="closed" value="true" />
+      <created>1728741922332</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1728741922332</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="printing points" />
     <MESSAGE value="printing points + colored by nearest point" />
     <MESSAGE value="k means centroid" />
-    <option name="LAST_COMMIT_MESSAGE" value="k means centroid" />
+    <MESSAGE value="k means centroid + succesfullity not complete" />
+    <option name="LAST_COMMIT_MESSAGE" value="k means centroid + succesfullity not complete" />
   </component>
 </project>

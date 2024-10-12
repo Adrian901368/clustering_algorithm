@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ce8fabfc-6f08-4940-9e16-a86967aad848" name="Changes" comment="k means centroid + succesfullity not complete">
+    <list default="true" id="ce8fabfc-6f08-4940-9e16-a86967aad848" name="Changes" comment="K MEANS CENTROID DONE">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/clustering_Z2B_barnak.py" beforeDir="false" afterPath="$PROJECT_DIR$/clustering_Z2B_barnak.py" afterDir="false" />
     </list>
@@ -176,7 +176,23 @@
       <option name="project" value="LOCAL" />
       <updated>1728741922332</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="K MEANS CENTROID DONE">
+      <option name="closed" value="true" />
+      <created>1728764399616</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1728764399616</updated>
+    </task>
+    <task id="LOCAL-00015" summary="K MEANS CENTROID DONE">
+      <option name="closed" value="true" />
+      <created>1728764405850</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1728764405850</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -184,6 +200,7 @@
     <MESSAGE value="printing points + colored by nearest point" />
     <MESSAGE value="k means centroid" />
     <MESSAGE value="k means centroid + succesfullity not complete" />
-    <option name="LAST_COMMIT_MESSAGE" value="k means centroid + succesfullity not complete" />
+    <MESSAGE value="K MEANS CENTROID DONE" />
+    <option name="LAST_COMMIT_MESSAGE" value="K MEANS CENTROID DONE" />
   </component>
 </project>

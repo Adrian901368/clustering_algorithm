@@ -3,7 +3,7 @@ import random
 import numpy as np
 
 
-NUM_CLUSTERS = 20
+NUM_CLUSTERS = 10
 
 # Function to map value from one range to another
 def map_range(value, real_min, real_max, tkinter_min, tkinter_max):
@@ -29,22 +29,27 @@ def distance(point1, point2):
     return np.sqrt((point1[0] - point2[0])**2 + (point1[1] - point2[1])**2)
 
 # Function to find the closest centroid
-def find_closest_centroid(point, centroids):
-    distances = [distance(point, centroid) for centroid in centroids]
+def find_closest_medoids(point, medoids):
+    distances = [distance(point, medoid) for medoid in medoids]
     return np.argmin(distances)
 
 # Function to recalculate centroids as the mean of points in each cluster
-def recalculate_centroids(clusters):
-    new_centroids = []
+def recalculate_medoids(clusters):
+    new_medoids = []
     for cluster in clusters:
         if len(cluster) > 0:
-            new_centroid = np.mean(cluster, axis=0)
-            new_centroids.append(new_centroid)
+            # Find the point with the minimum total distance to all other points in the cluster
+            distances_sum = []
+            for point in cluster:
+                total_distance = np.sum([distance(point, other_point) for other_point in cluster])
+                distances_sum.append(total_distance)
+            min_distance_index = np.argmin(distances_sum)
+            new_medoids.append(cluster[min_distance_index])  # Select the medoid
         else:
             # Assign a random point if the cluster is empty
-            new_centroid = np.array([random.uniform(-5000, 5000), random.uniform(-5000, 5000)])
-            new_centroids.append(new_centroid)
-    return new_centroids
+            new_medoid = np.array([random.uniform(-5000, 5000), random.uniform(-5000, 5000)])
+            new_medoids.append(new_medoid)
+    return new_medoids
 
 # Function to evaluate cluster success with original coordinates
 def evaluate_cluster_success(clusters, centroids):
@@ -65,42 +70,48 @@ def evaluate_cluster_success(clusters, centroids):
     return successful_clusters
 
 # Iterative K-means clustering function
-def k_means_clustering(additional_points, main_points, num_clusters, max_iterations=200):
-    # Combine main points and additional points for random initialization
-    all_points = list(np.array([p[:2] for p in main_points.values()]))
+# Iterative K-medoids clustering function
+def k_medoids_clustering(additional_points, main_points, num_clusters, max_iterations=200):
+    # Initialize medoids with the first 20 main points
+    initial_medoids = [main_points[f'point_{i}'][:2] for i in range(num_clusters)]
 
-    # If k is greater than available points, use all points and add random new points
-    if num_clusters > len(all_points):
-        initial_centroids = random.sample(all_points, len(all_points))
-        while len(initial_centroids) < num_clusters:
-            new_centroid = np.array([random.uniform(-5000, 5000), random.uniform(-5000, 5000)])
-            initial_centroids.append(new_centroid)
-    else:
-        initial_centroids = random.sample(all_points, num_clusters)
+    # If more clusters are needed, add random points
+    if num_clusters > 20:
+        additional_needed = num_clusters - 20
+        all_points = [p[:2] for p in additional_points]  # Use only (x, y) coordinates from additional points
+        if additional_needed <= len(all_points):
+            initial_medoids += random.sample(all_points, additional_needed)
+        else:
+            # If there are not enough additional points, generate random points
+            while len(initial_medoids) < num_clusters:
+                new_medoid = np.array([random.uniform(-5000, 5000), random.uniform(-5000, 5000)])  # Ensure it's 2D
+                initial_medoids.append(new_medoid)
 
-    centroids = initial_centroids
+    medoids = initial_medoids
     clusters = {i: [] for i in range(num_clusters)}
 
     for iteration in range(max_iterations):
         # Clear clusters in each iteration
         clusters = {i: [] for i in range(num_clusters)}
 
-        # Assign each point to the closest centroid
+        # Assign each point to the closest medoid
         for point in additional_points:
-            cluster_index = find_closest_centroid(point[:2], centroids)
+            cluster_index = find_closest_medoids(point[:2], medoids)
             clusters[cluster_index].append(point[:2])
 
-        # Recalculate centroids
-        new_centroids = recalculate_centroids([np.array(clusters[i]) for i in range(num_clusters)])
+        # Recalculate medoids
+        new_medoids = recalculate_medoids([np.array(clusters[i]) for i in range(num_clusters)])
 
-        # Check if centroids have stabilized (no significant change)
-        if np.allclose(new_centroids, centroids, atol=0.1):
-            print(f"Centroids stabilized after {iteration + 1} iterations")
+        # Check if medoids have stabilized
+        if np.allclose(new_medoids, medoids, atol=0.1):
+            print(f"Medoids stabilized after {iteration + 1} iterations")
             break
 
-        centroids = new_centroids
+        medoids = new_medoids
 
-    return centroids, clusters
+    return medoids, clusters
+
+
 
 # Create a tkinter window
 root = tk.Tk()
@@ -122,7 +133,7 @@ for i in range(20):
 additional_points = []
 
 # Generate 400 additional points based on all points (main + additional) and assign to clusters
-for i in range(40000):
+for i in range(10000):
     all_points = list(main_points.values()) + additional_points
     selected_point = random.choice(all_points)
     base_x, base_y, _, _ = selected_point
@@ -138,7 +149,7 @@ for i in range(40000):
   # Change this number to adjust clusters
 
 # Perform k-means clustering
-final_centroids, final_clusters = k_means_clustering(additional_points, main_points, NUM_CLUSTERS)
+final_centroids, final_clusters = k_medoids_clustering(additional_points, main_points, NUM_CLUSTERS)
 
 # Assign unique colors to each cluster
 centroid_colors = [random_color() for _ in final_centroids]
@@ -165,7 +176,7 @@ for i, centroid in enumerate(final_centroids):
     #canvas.create_oval(centroid_x_normalized - radius, centroid_y_normalized - radius,
      #                  centroid_x_normalized + radius, centroid_y_normalized + radius,
       #                 fill=centroid_colors[i], outline="red", width=2)  # Red outline
-    canvas.create_text(centroid_x_normalized, centroid_y_normalized, text=f"C{i + 1}", font=("Arial", 10), fill="red")
+    canvas.create_text(centroid_x_normalized, centroid_y_normalized, text=f"M{i + 1}", font=("Arial", 10), fill="red")
 for i, (name, (x, y, x_norm, y_norm)) in enumerate(main_points.items()):
     radius = 5
     canvas.create_oval(x_norm-radius, y_norm-radius,x_norm+radius, y_norm+radius, fill="white", outline="black")

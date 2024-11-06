@@ -4,9 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ce8fabfc-6f08-4940-9e16-a86967aad848" name="Changes" comment="DIVISIVE CENTROID">
+    <list default="true" id="ce8fabfc-6f08-4940-9e16-a86967aad848" name="Changes" comment="ALL 3 DONE">
+      <change afterPath="$PROJECT_DIR$/divisional_centroid.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/k_means_medoid.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/UI_Z2B_barnak_Clustering.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/UI_Z2B_barnak_Clustering.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/clustering_Z2B_barnak.py" beforeDir="false" afterPath="$PROJECT_DIR$/clustering_Z2B_barnak.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/clustering_Z2B_barnak.py" beforeDir="false" afterPath="$PROJECT_DIR$/k_means_centroid.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -47,9 +51,13 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "Python.clustering_Z2B_barnak.executor": "Run",
+    "Python.divisional_centroid.executor": "Run",
+    "Python.k_means_centroid.executor": "Run",
+    "Python.k_means_medoid.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "git-widget-placeholder": "master",
-    "last_opened_file_path": "C:/Users/001ba/OneDrive/Desktop/folder/UI/UI_Z2B_barnak_Clustering"
+    "last_opened_file_path": "C:/Users/001ba/OneDrive/Desktop/folder/pypy3.10-v7.3.17-win64",
+    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable"
   }
 }]]></component>
   <component name="RecentsManager">
@@ -225,7 +233,23 @@
       <option name="project" value="LOCAL" />
       <updated>1728774255388</updated>
     </task>
-    <option name="localTasksCounter" value="20" />
+    <task id="LOCAL-00020" summary="ALL 3 DONE">
+      <option name="closed" value="true" />
+      <created>1729077378581</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1729077378581</updated>
+    </task>
+    <task id="LOCAL-00021" summary="ALL 3 DONE">
+      <option name="closed" value="true" />
+      <created>1729077386392</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1729077386392</updated>
+    </task>
+    <option name="localTasksCounter" value="22" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -236,6 +260,7 @@
     <MESSAGE value="K MEANS CENTROID DONE" />
     <MESSAGE value="K MEANS MEDOID DONE" />
     <MESSAGE value="DIVISIVE CENTROID" />
-    <option name="LAST_COMMIT_MESSAGE" value="DIVISIVE CENTROID" />
+    <MESSAGE value="ALL 3 DONE" />
+    <option name="LAST_COMMIT_MESSAGE" value="ALL 3 DONE" />
   </component>
 </project>
